@@ -58,12 +58,5 @@ margin: 5rem 0rem 0rem 37rem;
 }
 `;
 
-// const StartButton = () => {
-//     return (
-//         <button></button>
-//     )
-// }
-
-// export default StartButton
 
 
