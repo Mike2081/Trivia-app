@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Game from './components/Game.js';
-import Start from "./components/Start.js";
-import { findRenderedComponentWithType } from 'react-dom/test-utils';
+import styled from "styled-components";
+import {Wrapper} from './Wrapper.js';
+import {StartButton} from './StartButton';
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
 background:#8f67d2;
@@ -89,15 +88,17 @@ margin: 0rem 0rem 0rem 5rem;
 }
 `;
 
-const App = () => {
+const Start = () => {
     return (
-        <Router>
-           <Switch>
-                <Route path = "/" exact component = {Start}/>
-                <Route path ="/game" component = {Game} />
-            </Switch>  
-        </Router>
+        <Wrapper>
+            <Container>
+                <Title>Test Your Trivia Knowledge!</Title>
+            </Container>
+            <Link to={'/game'}>
+                <StartButton>Start</StartButton>
+            </Link>
+        </Wrapper>
     )
 }
 
-export default App
+export default Start

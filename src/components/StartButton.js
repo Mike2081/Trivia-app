@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const StartButton = styled.button`
 height: 17vh;
 width: 20vw;
@@ -56,5 +57,13 @@ margin: 5rem 0rem 0rem 37rem;
     margin: 5rem 0rem 0rem 51rem;
 }
 `;
+
+// const StartButton = () => {
+//     return (
+//         <button></button>
+//     )
+// }
+
+// export default StartButton
 
 
