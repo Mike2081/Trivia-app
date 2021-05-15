@@ -1,5 +1,6 @@
 // import styled from "styled-components";
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 
 
@@ -9,34 +10,32 @@ const Game = () => {
     const [questions, setQuestions] = useState(false);
     const [questionNumber, setquestionNumber] = useState(0)
     const [score, setScore] = useState(0)
-    const scorePlus = () => {
-        setScore(score + 1);
-    }
-
-    const scoreMinus = () => {
-        setScore(score - 1);
-    }
-
-    const nextQuestion = () => {
-        setquestionNumber(questionNumber + 1);
-    }
- 
-
+    
+    
     useEffect(() => {
         if (!questions) {
             fetch('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
             .then((response) => response.json())
             .then((data) => setQuestions(data));
         }
-    }//ask erik about how to write log catch errors with this^
-    );
+    }, []);//ask erik about how to write log catch errors with this^
+    
+    const scorePlus = () => {
+        setScore(score + 1);
+        setquestionNumber(questionNumber + 1);
+    }// adds one point to score board and moves on to next question
+
+    const scoreMinus = () => {
+        setScore(score - 1);
+        setquestionNumber(questionNumber + 1);
+    }// subtracts one point to score board and moves on to next 
 
     useEffect(() => {
        console.log(questions)
-    });
+    });//remove this once you finish the component
     
 
-
+    if (questionNumber < 11) {
     return (
         <div>
            
@@ -50,12 +49,24 @@ const Game = () => {
             
             {questions ? ( <button onClick={() => scorePlus() }>{JSON.stringify(questions.results[questionNumber].correct_answer)}</button>) : ("")}
 
-            <button onClick={() => nextQuestion() }>Next Question</button>
-
             <div>Score: {score}</div>
 
         </div>
-    )
+        )
+    }
+    else {
+      return (
+            <div>
+                <div>end</div>
+                <div>Score: {score}</div>
+                <Link to={'/'}>
+                <button>Try again</button>
+            </Link>
+            </div>
+            
+      )
+    }
+
 }
 
 export default Game
