@@ -24,15 +24,12 @@ const Game = () => {
     }, []);//ask erik about how to write log catch errors with this^
 
     useEffect(() => {
-        axios.get('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
-        .then(resp => setHolder(resp.data));
-    }, [])
-
-    useEffect(() => {
-    holder.map((item) => {
-      setChoices([...choices, item]);
-    });
-  }, []);
+    fetch('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
+    .then(response => response.json())
+    .then(json => {
+      setHolder([json]);
+  })
+},[])
     
     const scorePlus = () => {
         setScore(score + 1);
@@ -49,7 +46,7 @@ const Game = () => {
     });//remove this once you finish the component
 
     useEffect(() => {
-       console.log(choices)
+       console.log(holder)
     });//remove this once you finish the component
     
 
