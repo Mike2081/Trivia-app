@@ -24,12 +24,9 @@ const Game = () => {
     }, []);//ask erik about how to write log catch errors with this^
 
     useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
-    .then(response => response.json())
-    .then(json => {
-      setHolder([json]);
-  })
-},[])
+        axios.get('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
+        .then(resp => setHolder(resp.data));
+    }, [])
     
     const scorePlus = () => {
         setScore(score + 1);
@@ -45,10 +42,19 @@ const Game = () => {
        console.log(questions)
     });//remove this once you finish the component
 
-    useEffect(() => {
-       console.log(holder)
-    });//remove this once you finish the component
+    const tester = {}
+
+    holder.results.map( holder => {
+        const tester = {
+        trivia: holder.question
+    };
+    })
+
     
+    
+    useEffect(() => {
+       console.log(tester)
+    });//remove this once you finish the component
 
     if (questionNumber < 11) {//if questionNumber is less than 11 show questions else show end game and final score
     return (
