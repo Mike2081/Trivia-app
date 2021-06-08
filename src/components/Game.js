@@ -4,29 +4,21 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 
 
-
+const API_URL = 'https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple' ;
 
 const Game = () => {
 
-    const [questions, setQuestions] = useState(false);
+    const [questions, setQuestions] = useState([]);
     const [questionNumber, setquestionNumber] = useState(0)
     const [score, setScore] = useState(0)
-    const [choices, setChoices] = useState([]);
-    const [holder, setHolder] = useState([]);
-    
     
     useEffect(() => {
-        if (!questions) {
-            fetch('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
-            .then((response) => response.json())
-            .then((data) => setQuestions(data));
-        }
-    }, []);//ask erik about how to write log catch errors with this^
-
-    useEffect(() => {
-        axios.get('https://opentdb.com/api.php?amount=11&category=9&difficulty=easy&type=multiple')
-        .then(resp => setHolder(resp.data));
-    }, [])
+        fetch(API_URL)
+        .then((res) => res.json())
+        .then((data) => {
+            setQuestions(data.results);
+        });
+    }, []);
     
     const scorePlus = () => {
         setScore(score + 1);
@@ -38,29 +30,12 @@ const Game = () => {
         setquestionNumber(questionNumber + 1);
     }// subtracts one point to score board and moves on to next 
 
-    useEffect(() => {
-       console.log(questions)
-    });//remove this once you finish the component
 
-    const tester = {}
-
-    holder.results.map( holder => {
-        const tester = {
-        trivia: holder.question
-    };
-    })
-
-    
-    
-    useEffect(() => {
-       console.log(tester)
-    });//remove this once you finish the component
-
-    if (questionNumber < 11) {//if questionNumber is less than 11 show questions else show end game and final score
+    if (questions.length > 0 ) {//if questionNumber is less than 11 show questions else show end game and final score
     return (
         <div>
-           
-            {questions ? ( <p>{JSON.stringify(questions.results[questionNumber].question)}</p>) : ("")} {/*this is a ternary operator 'question ?' <-- meaning: is 'question' true? if so ( : )than do what inside the "" */}
+           {questions ? ( <p>{JSON.stringify(questions.results[questionNumber].question)}</p>) : ("")} {/*this is a ternary operator 'question ?' <-- meaning: is 'question' true? if so ( : )than do what inside the "" */}
+            <div> <h2 dangerouslySetInnerHTML={{__html: questions[questionNumber].question }}/> </div>
 
             {questions ? ( <button onClick={() => scoreMinus() }>{JSON.stringify(questions.results[questionNumber].incorrect_answers[0])}</button>) : ("")}
         
@@ -71,7 +46,7 @@ const Game = () => {
             {questions ? ( <button onClick={() => scorePlus() }>{JSON.stringify(questions.results[questionNumber].correct_answer)}</button>) : ("")}
 
             <div>Score: {score}</div>
-
+            
         </div>
         )
     }
