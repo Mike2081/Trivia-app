@@ -1,14 +1,25 @@
-import react from "react";
 
-const Trivia = ({ data: {question, correct_answer, incorrect_answers}, }) => (
-    <div>
-            <h2 dangerouslySetInnerHTML = {{ __html: question }} />
-            <button dangerouslySetInnerHTML = {{ __html: incorrect_answers[0] }} />
-            <button dangerouslySetInnerHTML = {{ __html: incorrect_answers[1] }} />
-            <button dangerouslySetInnerHTML = {{ __html: incorrect_answers[2] }} />
-            <button dangerouslySetInnerHTML = {{ __html: correct_answer }} />
-            
-    </div>
-)
+const Trivia = ({ handleAnswer, data: { question, correct_answer, incorrect_answers },
+}) => {
+
+
+
+    const shufflingAnswers = [correct_answer, ...incorrect_answers].sort(() => Math.random() - 0.5);
+
+    return (
+        <div>
+            <h2 dangerouslySetInnerHTML={{ __html: question }} />
+            <div>
+                {shufflingAnswers.map((answer) => (
+                    <button
+                        onClick={() => handleAnswer(answer)}
+                        dangerouslySetInnerHTML={{ __html: answer }}>
+                    </button>
+                ))}
+            </div>
+
+        </div>
+    )
+};
 
 export default Trivia;
