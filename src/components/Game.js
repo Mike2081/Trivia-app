@@ -27,25 +27,31 @@ const Game = () => {
             setScore(score + 1);
         }
     };
-
-    if (currentIndex < 9) {
-    return (
-        <div>
-            <Trivia data={question[currentIndex]} handleAnswer={handleAnswer} />
-            <div>Score: {score}</div>
-            </div>
-    )
-    } else {
-        return (
-            <div>
-                <p>Done! Your score is</p>
-                <div>{score}</div>
-                <Link to={'/'}>
-                    <button>Try again</button>
-                </Link>
-            </div>
-        )
-    }
+        
+    return question.length > 0 ? (
+                <div>
+                    {currentIndex >= 10 ? (
+                    <div>
+                        <h1>
+                            Your score: {score}/10
+                        </h1>
+                        <Link to={'/'}>
+                            <button>
+                                Try again
+                            </button>
+                        </Link>
+                    </div>    
+                    ) : (
+                        <div>
+                            <Trivia data={question[currentIndex]} handleAnswer={handleAnswer} />
+                            <div>Score: {score}</div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div> error loading! </div>
+            )       
+    
 }
 
 export default Game
