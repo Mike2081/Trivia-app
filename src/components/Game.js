@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Trivia from "./Trivia";
 
-const API_URL = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple';
+const API_URL = 'https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple';
 
 const Game = () => {
 
