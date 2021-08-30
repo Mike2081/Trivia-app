@@ -27,6 +27,7 @@ const Game = () => {
             setScore(score + 1);
         }
     };
+    // create this exact thing^^ but for incorrect answer but while changing the color button to red^^^
         
     return question.length > 0 ? (
                 <div>
